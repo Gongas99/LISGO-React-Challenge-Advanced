@@ -1,10 +1,11 @@
 import React from 'react';
 
-function Home() {
+const Home = () => {
     return (
         <header className="App-header">
-            <p>React To-Do</p>
 
+            <h1>React To-Do</h1>
+            <p>Create your own To-Do list here</p>
         </header>
     )
 }
