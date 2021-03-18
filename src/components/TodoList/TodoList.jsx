@@ -28,7 +28,11 @@ const TodoList = () => {
                 ? todos.map(t => {
                     return (
                         <>
-                            <Todo taskName={t.description} isCompleted={t.state} />
+                            <Todo 
+                                id={t.id}
+                                taskName={t.description} 
+                                isCompleted={t.state} 
+                            />
                             <hr />
                         </>)
                 })
