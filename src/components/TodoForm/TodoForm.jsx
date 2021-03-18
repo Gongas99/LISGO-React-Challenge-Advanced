@@ -4,6 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FormInput from '../FormInput'
 
+import './TodoForm.scss'
+
 /**
  * Material UI function to use styles
  */
@@ -30,9 +32,36 @@ const TodoForm = () => {
         setNewTask({ ...newTask, [name]: value });
     };
 
+    const handleSubmit = event => {
+        event.preventDefault();
+
+        const requestOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InplIiwic3VybmFtZSI6ImJhbmFuYSIsInNjb3BlIjoibm9ybWFsIiwiaWF0IjoxNjE2MDc5ODIyfQ.iFNVkynZbsC5mDVanAIHEND0Ln-MdFDNqIRiUBA6CQc'
+            },
+            body: JSON.stringify({
+                description: task
+            })
+        };
+        console.log(requestOptions)
+
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos`, requestOptions)
+            .then(response => response.json())
+            .then(function (e) {
+                if (e.success) {
+                    console.log(e.data)
+                } else {
+                    console.log(e.error);
+                }
+            });
+
+    }
+
     return (
-        <>
-            <form className={classes.root} noValidate autoComplete="off">
+        <div className='todo-form'>
+            <form onSubmit={handleSubmit}>
                 <FormInput
                     name="task"
                     type="name"
@@ -41,12 +70,14 @@ const TodoForm = () => {
                     label="Write new task here…"
                     required
                 />
-                <Button variant="contained" color="primary">
-                    Create
-                </Button>
+                <input id="submit-button" type="submit" />
+                <label htmlFor="submit-button">
+                    <Button variant="contained" color="primary">
+                        Create
+                    </Button>
+                </label>
             </form>
-
-        </>
+        </div>
     )
 }
 
