@@ -24,7 +24,6 @@ const TodoForm = () => {
     });
     const { task } = newTask;
 
-
     const handleChange = event => {
         const { value, name } = event.target;
 

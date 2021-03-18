@@ -23,17 +23,19 @@ import './Login.scss';
 
 const Login = () => {
     const [userCredentials, setCredentials] = useState({
-        user: '',
+        name: '',
         password: '',
     });
-    const { user, password } = userCredentials;
+    const { name, password } = userCredentials;
 
     const { signIn } = useAuth();
+
+    const classes = useStyles();
 
     const handleSubmit = event => {
         event.preventDefault();
 
-        signIn(user, password, function(message) {
+        signIn(name, password, function(message) {
             //notifyError(message, null);
         });
     };
@@ -53,7 +55,7 @@ const Login = () => {
                 <FormInput
                     name="name"
                     type="name"
-                    value={user}
+                    value={name}
                     handleChange={handleChange}
                     label="Insert Name"
                     required
@@ -67,7 +69,7 @@ const Login = () => {
                     required
                 />
 
-                <div className="form-buttons">
+                <div className={classes.root}>
                     <Button type="submit"> Login </Button>
                 </div>
             </form>
