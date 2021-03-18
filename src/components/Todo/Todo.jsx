@@ -3,6 +3,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 
 const Todo = ({ id, taskName, isCompleted }) => {
+    const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InplIiwic3VybmFtZSI6ImJhbmFuYSIsInNjb3BlIjoibm9ybWFsIiwiaWF0IjoxNjE2MDc5ODIyfQ.iFNVkynZbsC5mDVanAIHEND0Ln-MdFDNqIRiUBA6CQc'
+    
     const handleEdit = event => {
 
     }
@@ -10,7 +12,7 @@ const Todo = ({ id, taskName, isCompleted }) => {
     const handleDelete = event => {
         const requestOptions = {
             method: 'DELETE',
-            headers: { 'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InplIiwic3VybmFtZSI6ImJhbmFuYSIsInNjb3BlIjoibm9ybWFsIiwiaWF0IjoxNjE2MDc5ODIyfQ.iFNVkynZbsC5mDVanAIHEND0Ln-MdFDNqIRiUBA6CQc' },
+            headers: { 'Authorization': `Bearer ${authToken}` },
         };
 
         fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/${id}`, requestOptions)

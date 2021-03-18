@@ -17,23 +17,23 @@ const CurrentAuthProvider = ({ children }) => {
         }
     }, []);
 
-    const signIn = (user, password, cb) => {
+    const signIn = (name, password, cb) => {
         const requestOptions = {
             method: 'POST',
-            headers: '',
-            body: JSON.stringify({ user: user, password: password }),
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ name: name, password: password }),
         };
 
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/auth`, requestOptions)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, requestOptions)
             .then(response => response.json())
             .then(function(e) {
                 if (e.success) {
                     setUserProfile(e.data);
                     sessionStorage.setItem('@app:user', JSON.stringify(e.data));
                     setIsAuthenticated(true);
-                    cb(true);
+                    cb(e.success);
                 } else {
-                    cb(e.error.message);
+                    cb(e.success);
                 }
             });
     };
@@ -47,26 +47,8 @@ const CurrentAuthProvider = ({ children }) => {
         setIsAuthenticated(false);
     };
 
-    const getUserProfile = async () => {
-        const requestOptions = {
-            method: 'GET',
-            headers: '',
-        };
-
-        await fetch(`${process.env.REACT_APP_BACKEND_URL}/user/${userProfile._id}`, requestOptions)
-            .then(response => response.json())
-            .then(function(e) {
-                if (e.success) {
-                    setUserProfile(e.data);
-                    sessionStorage.setItem('@app:user', JSON.stringify(e.data));
-                } else {
-                    console.log(e.error.message);
-                }
-            });
-    };
-
     return (
-        <CurrentAuthContext.Provider value={{ signIn, signOut, getUserProfile, isAuthenticated, userProfile }}>
+        <CurrentAuthContext.Provider value={{ signIn, signOut, isAuthenticated, userProfile }}>
             {children}
         </CurrentAuthContext.Provider>
     );

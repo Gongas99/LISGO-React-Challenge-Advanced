@@ -4,9 +4,13 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
+import { CurrentAuthProvider } from './providers';
+
 ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
+  <CurrentAuthProvider>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </CurrentAuthProvider>,
   document.getElementById('root')
 );

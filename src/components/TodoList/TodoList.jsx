@@ -4,11 +4,11 @@ import Todo from '../Todo';
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
-
+    const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InplIiwic3VybmFtZSI6ImJhbmFuYSIsInNjb3BlIjoibm9ybWFsIiwiaWF0IjoxNjE2MDc5ODIyfQ.iFNVkynZbsC5mDVanAIHEND0Ln-MdFDNqIRiUBA6CQc'
     useEffect(() => {
         const requestOptions = {
             method: 'GET',
-            headers: { 'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InplIiwic3VybmFtZSI6ImJhbmFuYSIsInNjb3BlIjoibm9ybWFsIiwiaWF0IjoxNjE2MDc5ODIyfQ.iFNVkynZbsC5mDVanAIHEND0Ln-MdFDNqIRiUBA6CQc' },
+            headers: { 'Authorization': `Bearer ${authToken}` },
         };
 
         fetch(`${process.env.REACT_APP_BACKEND_URL}/todos`, requestOptions)
@@ -24,7 +24,7 @@ const TodoList = () => {
 
     return (
         <>
-            {todos.length != 0
+            {todos.length !== 0
                 ? todos.map(t => {
                     return (
                         <>

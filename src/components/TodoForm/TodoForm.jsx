@@ -1,35 +1,17 @@
 import React, { useState } from 'react';
 
-import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import FormInput from '../FormInput'
 
 import './TodoForm.scss'
 
-/**
- * Material UI function to use styles
- */
-const useStyles = makeStyles((theme) => ({
-    root: {
-        '& > *': {
-            margin: theme.spacing(1),
-            width: '25ch',
-        },
-    },
-}));
-
 const TodoForm = () => {
-    const classes = useStyles();
+    const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InplIiwic3VybmFtZSI6ImJhbmFuYSIsInNjb3BlIjoibm9ybWFsIiwiaWF0IjoxNjE2MDc5ODIyfQ.iFNVkynZbsC5mDVanAIHEND0Ln-MdFDNqIRiUBA6CQc'
 
-    const [newTask, setNewTask] = useState({
-        task: '',
-    });
-    const { task } = newTask;
+    const [newTask, setNewTask] = useState('');
 
     const handleChange = event => {
-        const { value, name } = event.target;
-
-        setNewTask({ ...newTask, [name]: value });
+        setNewTask(event.target.value);
     };
 
     const handleSubmit = event => {
@@ -39,10 +21,10 @@ const TodoForm = () => {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InplIiwic3VybmFtZSI6ImJhbmFuYSIsInNjb3BlIjoibm9ybWFsIiwiaWF0IjoxNjE2MDc5ODIyfQ.iFNVkynZbsC5mDVanAIHEND0Ln-MdFDNqIRiUBA6CQc'
+                'Authorization': `Bearer ${authToken}`
             },
             body: JSON.stringify({
-                description: task
+                description: newTask
             })
         };
         console.log(requestOptions)
@@ -65,7 +47,7 @@ const TodoForm = () => {
                 <FormInput
                     name="task"
                     type="name"
-                    value={task}
+                    value={newTask}
                     handleChange={handleChange}
                     label="Write new task here…"
                     required
