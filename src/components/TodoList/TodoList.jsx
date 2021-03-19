@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
+import { useAuth } from '../../providers/';
 
 import Todo from '../Todo';
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
-    const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InplIiwic3VybmFtZSI6ImJhbmFuYSIsInNjb3BlIjoibm9ybWFsIiwiaWF0IjoxNjE2MDc5ODIyfQ.iFNVkynZbsC5mDVanAIHEND0Ln-MdFDNqIRiUBA6CQc'
+    const { getUserInfo } = useAuth();
+    const authToken = JSON.parse(getUserInfo()).accessToken;
     useEffect(() => {
         const requestOptions = {
             method: 'GET',

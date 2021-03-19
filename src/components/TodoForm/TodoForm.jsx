@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-
+import { useAuth } from '../../providers/';
 import Button from '@material-ui/core/Button';
 import FormInput from '../FormInput'
 
 import './TodoForm.scss'
 
 const TodoForm = () => {
-    const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InplIiwic3VybmFtZSI6ImJhbmFuYSIsInNjb3BlIjoibm9ybWFsIiwiaWF0IjoxNjE2MDc5ODIyfQ.iFNVkynZbsC5mDVanAIHEND0Ln-MdFDNqIRiUBA6CQc'
-
+    const { getUserInfo } = useAuth();
+    const authToken = JSON.parse(getUserInfo()).accessToken;
     const [newTask, setNewTask] = useState('');
 
     const handleChange = event => {

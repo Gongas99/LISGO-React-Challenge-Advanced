@@ -1,10 +1,11 @@
 import React from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
+import { useAuth } from '../../providers/';
 
 const Todo = ({ id, taskName, isCompleted }) => {
-    const authToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InplIiwic3VybmFtZSI6ImJhbmFuYSIsInNjb3BlIjoibm9ybWFsIiwiaWF0IjoxNjE2MDc5ODIyfQ.iFNVkynZbsC5mDVanAIHEND0Ln-MdFDNqIRiUBA6CQc'
-    
+    const { getUserInfo } = useAuth();
+    const authToken = JSON.parse(getUserInfo()).accessToken;
     const handleEdit = event => {
 
     }

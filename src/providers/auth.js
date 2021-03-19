@@ -47,8 +47,12 @@ const CurrentAuthProvider = ({ children }) => {
         setIsAuthenticated(false);
     };
 
+    const getUserInfo = () => {
+        return sessionStorage.getItem('@app:user');
+    }
+
     return (
-        <CurrentAuthContext.Provider value={{ signIn, signOut, isAuthenticated, userProfile }}>
+        <CurrentAuthContext.Provider value={{ signIn, signOut, getUserInfo, isAuthenticated, userProfile }}>
             {children}
         </CurrentAuthContext.Provider>
     );

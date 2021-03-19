@@ -1,5 +1,6 @@
 import Home from "./pages/Home";
 import Login from "./pages/Login";
+import Register from "./pages/Register/Register";
 import Todos from "./pages/Todos";
 import Users from "./pages/Users";
 
@@ -21,6 +22,11 @@ const routes = [
         exact: true,
         component: Users,
     },
+    {
+        path: '/register',
+        exact: true,
+        component: Register,
+    }
 ];
 
 export default routes;
