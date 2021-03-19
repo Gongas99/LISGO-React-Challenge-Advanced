@@ -7,7 +7,7 @@ const Todo = ({ id, taskName, isCompleted }) => {
     const { getUserInfo } = useAuth();
     const authToken = JSON.parse(getUserInfo()).accessToken;
     const handleEdit = event => {
-
+        //TODO
     }
 
     const handleDelete = event => {
