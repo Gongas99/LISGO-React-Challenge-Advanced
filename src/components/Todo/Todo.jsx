@@ -4,8 +4,8 @@ import IconButton from '@material-ui/core/IconButton';
 import { useAuth } from '../../providers/';
 
 const Todo = ({ id, taskName, isCompleted }) => {
-    const { getUserInfo } = useAuth();
-    const authToken = JSON.parse(getUserInfo()).accessToken;
+    const { userProfile } = useAuth();
+    const authToken = userProfile.accessToken;
     const handleEdit = event => {
         //TODO
     }

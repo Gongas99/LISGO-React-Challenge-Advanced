@@ -5,8 +5,8 @@ import Todo from '../Todo';
 
 const TodoList = () => {
     const [todos, setTodos] = useState([]);
-    const { getUserInfo } = useAuth();
-    const authToken = JSON.parse(getUserInfo()).accessToken;
+    const { userProfile } = useAuth();
+    const authToken = userProfile.accessToken;
     useEffect(() => {
         const requestOptions = {
             method: 'GET',

@@ -5,8 +5,8 @@ import { useAuth } from '../../providers';
 const Users = () => {
     const [users, setUsers] = useState([]);
 
-    const { getUserInfo } = useAuth();
-    const authToken = JSON.parse(getUserInfo()).accessToken;
+    const { userProfile } = useAuth();
+    const authToken = userProfile.accessToken;
 
     useEffect(() => {
         const fetchUsers = async () => {

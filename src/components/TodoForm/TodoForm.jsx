@@ -6,8 +6,8 @@ import FormInput from '../FormInput'
 import './TodoForm.scss'
 
 const TodoForm = () => {
-    const { getUserInfo } = useAuth();
-    const authToken = JSON.parse(getUserInfo()).accessToken;
+    const { userProfile } = useAuth();
+    const authToken = userProfile.accessToken;
     const [newTask, setNewTask] = useState('');
 
     const handleChange = event => {
