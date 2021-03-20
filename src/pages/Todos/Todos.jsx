@@ -5,15 +5,19 @@ import TodoForm from '../../components/TodoForm'
 
 import Checkbox from '@material-ui/core/Checkbox';
 
+import { useAuth } from '../../providers/';
+
 const Todos = () => {
     const [hideComplete, setHideComplete] = useState(false)
+    const { userProfile } = useAuth();
+    const authToken = userProfile.accessToken;
 
     const handleChange = (event) => {
         setHideComplete(event.target.checked);
-      };
+    };
 
     return (
-        <>
+        <div className="todos">
             <TodoForm />
             <p>Tasks</p>
             <hr />
@@ -25,7 +29,7 @@ const Todos = () => {
                 color="primary"
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />
-        </>
+        </div>
     )
 }
 

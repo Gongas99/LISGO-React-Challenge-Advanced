@@ -33,7 +33,7 @@ const TodoList = () => {
                             <Todo 
                                 id={t.id}
                                 taskName={t.description} 
-                                isCompleted={t.state} 
+                                isDone={t.state} 
                             />
                             <hr />
                         </>)

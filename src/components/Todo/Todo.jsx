@@ -1,14 +1,41 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import { useAuth } from '../../providers/';
 
-const Todo = ({ id, taskName, isCompleted }) => {
+const Todo = ({ id, taskName, isDone }) => {
     const { userProfile } = useAuth();
     const authToken = userProfile.accessToken;
+
+    const [isCompleted, setIsCompleted] = useState(isDone)
+
+    const changeTaskState = (state) => {
+        const requestOptions = {
+            method: 'PATCH',
+            headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${authToken}` },
+            body: JSON.stringify({ state: state })
+        };
+
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/${id}`, requestOptions)
+            .then(response => response.json())
+            .then(function (e) {
+                if (e.success) {
+                    console.log(e)
+                } else {
+                    console.log(e);
+                }
+            });
+    }
+
+    const handleChange = (event) => {
+        changeTaskState(event.target.checked)
+        setIsCompleted(event.target.checked);
+    };
+
     const handleEdit = event => {
         //TODO
     }
+
 
     const handleDelete = event => {
         const requestOptions = {
@@ -31,7 +58,7 @@ const Todo = ({ id, taskName, isCompleted }) => {
         <div className="todo">
             <Checkbox
                 checked={isCompleted}
-                onChange={() => { }}
+                onChange={handleChange}
                 color="primary"
                 inputProps={{ 'aria-label': 'primary checkbox' }}
             />

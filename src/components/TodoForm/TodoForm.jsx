@@ -52,12 +52,9 @@ const TodoForm = () => {
                     label="Write new task here…"
                     required
                 />
-                <input id="submit-button" type="submit" />
-                <label htmlFor="submit-button">
-                    <Button variant="contained" color="primary">
-                        Create
-                    </Button>
-                </label>
+                <Button variant="contained" color="primary" type="submit">
+                    Create
+                </Button>
             </form>
         </div>
     )

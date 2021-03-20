@@ -9,19 +9,16 @@ const Users = () => {
     const authToken = userProfile.accessToken;
 
     useEffect(() => {
-        const fetchUsers = async () => {
-            fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, { method: 'GET', headers: { 'Authorization': `Bearer ${authToken}` }})
-                .then(response => response.json())
-                .then(function (e) {
-                    if (e.success) {
-                        setUsers(e.data);
-                        console.log(e)
-                    } else {
-                        console.log(e);
-                    }
-                });
-        };
-        fetchUsers();
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, { method: 'GET', headers: { 'Authorization': `Bearer ${authToken}` } })
+            .then(response => response.json())
+            .then(function (e) {
+                if (e.success) {
+                    setUsers(e.data);
+                    console.log(e)
+                } else {
+                    console.log(e);
+                }
+            });
     }, []);
 
     return (
@@ -30,7 +27,7 @@ const Users = () => {
                 ? users.map(u => {
                     return (
                         <>
-                            <User 
+                            <User
                                 name={u.name}
                                 surname={u.surname}
                             />
