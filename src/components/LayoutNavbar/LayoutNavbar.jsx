@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Navbar from '../Navbar';
+import NavbarComponent from '../Navbar';
 
 const LayoutNavbar = ({ children }) => {
     return (
         <div className="app">
-            <Navbar />
+            <NavbarComponent />
             <div className="app__content">{children}</div>
         </div>
     );

@@ -81,7 +81,6 @@ const Todo = ({ id, taskName, isDone }) => {
                 </IconButton>
             </TableCell>
         </TableRow>
-
     )
 }
 

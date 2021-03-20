@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import User from '../../components/User';
+import Table from '@material-ui/core/Table';
+import TableBody from '@material-ui/core/TableBody';
+import TableCell from '@material-ui/core/TableCell';
+import TableContainer from '@material-ui/core/TableContainer';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import Checkbox from '@material-ui/core/Checkbox';
+
 import { useAuth } from '../../providers';
 
 const Users = () => {
@@ -23,18 +31,33 @@ const Users = () => {
 
     return (
         <>
-            {users.length !== 0
-                ? users.map(u => {
-                    return (
-                        <>
-                            <User
-                                name={u.name}
-                                surname={u.surname}
-                            />
-                            <hr />
-                        </>)
-                })
-                : 'Loading...'}
+            <h2>Users</h2>
+            <TableContainer>
+                <Table className="user-table" size="medium">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Name</TableCell>
+                            <TableCell>Surname</TableCell>
+                            <TableCell align="right">To-Do</TableCell>
+                            <TableCell></TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {users.length !== 0
+                            ? users.map(u => {
+                                return (
+                                    <>
+                                        <User
+                                            id={u.id}
+                                            name={u.name}
+                                            surname={u.surname}
+                                        />
+                                    </>)
+                            })
+                            : 'Loading...'}
+                    </TableBody>
+                </Table>
+            </TableContainer>
         </>
     )
 }

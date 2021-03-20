@@ -27,6 +27,12 @@ const routes = [
     },
     //ADMIN
     {
+        path: '/todos/:id',
+        exact: true,
+        component: Todos, 
+        layout: LayoutNavbar 
+    },
+    {
         path: '/users',
         exact: true,
         component: Users,

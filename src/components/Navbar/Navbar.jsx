@@ -1,54 +1,46 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React from 'react';
 import { useAuth } from '../../providers';
+import { Navbar, Nav } from 'react-bootstrap';
+import { Link } from 'react-router-dom'
 
-import './Navbar.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-const Navbar = () => {
+const NavbarComponent = () => {
     const { isAuthenticated, userProfile } = useAuth();
-    const [open, setOpen] = useState(false);
     return (
         <>
-            <div className="navbar">
-                <Link to="/">
-                    React To-Do
-                </Link>
-                <div className="navbar__desktop">
-                    <ul className="navbar__items">
-
+            <Navbar bg="light" expand="lg">
+                <Navbar.Brand href="/">React To-Do</Navbar.Brand>
+                <Navbar.Toggle aria-controls="basic-navbar-nav" />
+                <Navbar.Collapse id="basic-navbar-nav" className="justify-content-end">
+                    <Nav className="justify-content-end">
                         {isAuthenticated ? (
                             <>
                                 {userProfile.role.name === 'admin' ? (
                                     <>
-                                        <li>
-                                            <Link to="/users">Users</Link>
-                                        </li>
-                                        <li>
-                                            <Link to="/todos">My List</Link>
-                                        </li>
+                                        <Nav.Link as={Link} to="/users">Users</Nav.Link>
+                                        <Nav.Link as={Link} to="/todos">My List</Nav.Link>
                                     </>
                                 ) : (
                                     <>
-                                        <li>
-                                            <Link to="/todos">My List</Link>
-                                        </li>
+                                        <Nav.Link as={Link} to="/todos">My List</Nav.Link>
                                     </>
                                 )}
-                                <li>
-                                    <Link to="/logout">Logout</Link>
-                                </li>
+                                <>
+                                    <Nav.Link as={Link} to="/logout">Logout</Nav.Link>
+                                </>
                             </>
                         ) : (
-                            <li>
-                                <Link to="/login">Login</Link>
-                            </li>
+                            <>
+                                <Nav.Link as={Link} to="/login">Login</Nav.Link>
+                            </>
                         )}
-                    </ul>
-                </div>
-            </div>
+                    </Nav>
+                </Navbar.Collapse>
+            </Navbar>
         </>
     );
 
 }
 
-export default Navbar;
+export default NavbarComponent;

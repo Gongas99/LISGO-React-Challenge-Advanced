@@ -7,18 +7,20 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import Checkbox from '@material-ui/core/Checkbox';
-
 
 import Todo from '../Todo';
 
-const TodoList = ({ userId, hide }) => {
+const TodoList = ({userId, id}) => {
     const [todos, setTodos] = useState([]);
     const [hideComplete, setHideComplete] = useState(false)
 
     const { userProfile } = useAuth();
     const authToken = userProfile.accessToken;
+    
+    if(id){
+        userId = id
+    }
 
     const completedSelector = createSelector(
         state => state.values.todos,
@@ -36,6 +38,7 @@ const TodoList = ({ userId, hide }) => {
     };
 
     useEffect(() => {
+        console.log(userProfile);
         const requestOptions = {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${authToken}` },
