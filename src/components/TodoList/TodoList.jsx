@@ -3,7 +3,7 @@ import { useAuth } from '../../providers/';
 
 import Todo from '../Todo';
 
-const TodoList = () => {
+const TodoList = ({userId, hide}) => {
     const [todos, setTodos] = useState([]);
     const { userProfile } = useAuth();
     const authToken = userProfile.accessToken;
@@ -12,8 +12,7 @@ const TodoList = () => {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${authToken}` },
         };
-
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos`, requestOptions)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/user/${userId}`, requestOptions)
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {

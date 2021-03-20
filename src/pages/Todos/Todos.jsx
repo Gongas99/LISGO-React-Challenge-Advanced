@@ -10,7 +10,6 @@ import { useAuth } from '../../providers/';
 const Todos = () => {
     const [hideComplete, setHideComplete] = useState(false)
     const { userProfile } = useAuth();
-    const authToken = userProfile.accessToken;
 
     const handleChange = (event) => {
         setHideComplete(event.target.checked);
@@ -21,7 +20,10 @@ const Todos = () => {
             <TodoForm />
             <p>Tasks</p>
             <hr />
-            <TodoList />
+            <TodoList
+                userId={userProfile.id}
+                hide={hideComplete}
+            />
             <span>Hide completed</span>
             <Checkbox
                 checked={hideComplete}
