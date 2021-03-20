@@ -18,9 +18,6 @@ const Navbar = () => {
 
                         {isAuthenticated ? (
                             <>
-                                <li>
-                                    <Link to="/logout">Logout</Link>
-                                </li>
                                 {userProfile.role.name === 'admin' ? (
                                     <>
                                         <li>
@@ -37,6 +34,9 @@ const Navbar = () => {
                                         </li>
                                     </>
                                 )}
+                                <li>
+                                    <Link to="/logout">Logout</Link>
+                                </li>
                             </>
                         ) : (
                             <li>

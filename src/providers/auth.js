@@ -33,7 +33,7 @@ const CurrentAuthProvider = ({ children }) => {
                     setIsAuthenticated(true);
                     cb(e.success);
                 } else {
-                    cb(e.success);
+                    cb(null);
                 }
             });
     };

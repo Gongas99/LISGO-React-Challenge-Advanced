@@ -27,13 +27,13 @@ const TodoForm = () => {
                 description: newTask
             })
         };
-        console.log(requestOptions)
 
         fetch(`${process.env.REACT_APP_BACKEND_URL}/todos`, requestOptions)
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {
-                    console.log(e.data)
+                    //TODO reload page
+                    
                 } else {
                     console.log(e.error);
                 }
