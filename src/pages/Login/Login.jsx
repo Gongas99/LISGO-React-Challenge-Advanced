@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../providers/';
-import { Redirect } from "react-router-dom";
+import { useHistory } from 'react-router-dom'
+
 
 import FormInput from '../../components/FormInput'
 import Button from '@material-ui/core/Button';
@@ -13,6 +14,7 @@ const Login = () => {
         password: '',
     });
     const { name, password } = userCredentials;
+    const history = useHistory();
 
     const { signIn } = useAuth();
 
@@ -21,7 +23,7 @@ const Login = () => {
         signIn(name, password, function (message) {
             //if success
             if (message) {
-                return <Redirect to="/todos" />
+                history.push(`/todos/`)
             }
             //TODO error
         });
