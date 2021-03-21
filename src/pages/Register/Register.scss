@@ -10,13 +10,22 @@
         padding: 20px;
     }
 
+    .form-type{
+        padding-top: 20px;
+    }
+
     .register-form{
         display: flex;
         flex-direction: column;
         align-items: center;
 
         .form-button{
-            padding: 20px
+            padding: 20px;
+
+            Button{
+                background-color: #007bff;
+                color: white;
+            }
         }
     }
 }
