@@ -13,14 +13,14 @@ const Login = () => {
         password: '',
     });
     const { name, password } = userCredentials;
-    
+
     const { signIn } = useAuth();
 
     const handleSubmit = event => {
         event.preventDefault();
-        signIn(name, password, function(message) {
+        signIn(name, password, function (message) {
             //if success
-            if(message){
+            if (message) {
                 return <Redirect to="/todos" />
             }
             //TODO error
@@ -35,8 +35,10 @@ const Login = () => {
 
     return (
         <div className="login">
-            <h2>Login</h2>
-            <span>Use your name and password</span>
+            <div className="login-title">
+                <h2>Login</h2>
+                <span>Use your name and password</span>
+            </div>
 
             <form onSubmit={handleSubmit} className="login-form">
                 <FormInput
@@ -55,8 +57,8 @@ const Login = () => {
                     label="Insert Password"
                     required
                 />
-                
-                <div>
+
+                <div className="form-button">
                     <Button type="submit"> Login </Button>
                 </div>
             </form>
