@@ -48,13 +48,12 @@ const Users = () => {
                         {users.length !== 0
                             ? users.map(u => {
                                 return (
-                                    <>
                                         <User
+                                            key={u.id}
                                             id={u.id}
                                             name={u.name}
                                             surname={u.surname}
-                                        />
-                                    </>)
+                                        />)
                             })
                             : 'Loading...'}
                     </TableBody>

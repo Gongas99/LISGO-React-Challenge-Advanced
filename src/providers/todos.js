@@ -2,7 +2,8 @@ import React, { useState, createContext, useContext, useEffect } from 'react';
 import { useAuth } from '../providers';
 
 const TodoContext = createContext({
-    //Fazer alguma coisa aqui?
+    todos: [],
+    setTodos: () => {}
 });
 
 const TodoProvider = ({ children }) => {
@@ -65,7 +66,10 @@ const TodoProvider = ({ children }) => {
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {
-                    console.log(e)
+                    let todoId = getTodoById(id)
+                    let aux = [...todos];
+                    aux[todoId].description = description
+                    setTodos(aux);
                 } else {
                     console.log(e);
                 }
@@ -76,7 +80,7 @@ const TodoProvider = ({ children }) => {
         const requestOptions = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` },
-            body: JSON.stringify({ state: state })
+            body: JSON.stringify({ state })
         };
 
         fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/${id}`, requestOptions)
@@ -84,7 +88,7 @@ const TodoProvider = ({ children }) => {
             .then(function (e) {
                 if (e.success) {
                     let todoId = getTodoById(id)
-                    let aux = todos;
+                    let aux = [...todos];
                     aux[todoId].state = state
                     setTodos(aux);
                 } else {
@@ -104,7 +108,7 @@ const TodoProvider = ({ children }) => {
             .then(function (e) {
                 if (e.success) {
                     let todoId = getTodoById(id)
-                    let aux = todos;
+                    let aux = [...todos];
                     aux.splice(todoId, 1);
                     setTodos(aux);
                 } else {
@@ -129,7 +133,7 @@ const TodoProvider = ({ children }) => {
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {
-                    let aux = todos;
+                    let aux = [...todos];
                     aux.push(e.data)
                     setTodos(aux);
                 } else {

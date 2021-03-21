@@ -11,7 +11,6 @@ const Todo = ({ id, taskName, isDone }) => {
     const { editTodoDescription, deleteTodo, editTodoState } = useTodos();
 
     const [isEditing, setIsEditing] = useState(false)
-    const [isCompleted, setIsCompleted] = useState(isDone)
     const [descriptionAux, setDescriptionAux] = useState(taskName);
 
     const startEditing = () => {
@@ -27,8 +26,8 @@ const Todo = ({ id, taskName, isDone }) => {
         <TableRow>
             <TableCell padding="checkbox">
                 <Checkbox
-                    checked={isCompleted}
-                    onChange={() => {editTodoState(id, !isCompleted)}}
+                    checked={isDone}
+                    onChange={() => {editTodoState(id, !isDone)}}
                     color="primary"
                     inputProps={{ 'aria-label': 'primary checkbox' }}
                 />

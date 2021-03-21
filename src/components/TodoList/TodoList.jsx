@@ -59,13 +59,12 @@ const TodoList = ({ userId, id }) => {
                         {todos.length !== 0
                             ? todos.map(t => {
                                 return (
-                                    <>
                                         <Todo
+                                            key={t.id}
                                             id={t.id}
                                             taskName={t.description}
                                             isDone={t.state}
-                                        />
-                                    </>)
+                                        />)
                             })
                             : 'Loading...'}
                     </TableBody>
