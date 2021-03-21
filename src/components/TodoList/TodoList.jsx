@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth } from '../../providers/';
+import { useAuth, useTodos } from '../../providers/';
 import { createSelector, createStructuredSelector } from 'reselect';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -14,15 +14,19 @@ import Todo from '../Todo';
 import './TodoList.scss'
 
 const TodoList = ({ userId, id }) => {
-    const [todos, setTodos] = useState([]);
     const [hideComplete, setHideComplete] = useState(false)
 
-    const { userProfile } = useAuth();
-    const authToken = userProfile.accessToken;
+    const { todos, getTodos, getAnotherTodos } = useTodos();
 
-    if (id) {
-        userId = id
-    }
+    useEffect(() => {
+        if (id) {
+            //if admin wants another user than itself
+            getAnotherTodos(id);
+        }
+        else {
+            getTodos();
+        }
+    }, [])
 
     const completedSelector = createSelector(
         state => state.values.todos,
@@ -38,23 +42,6 @@ const TodoList = ({ userId, id }) => {
     const handleChange = (event) => {
         setHideComplete(event.target.checked);
     };
-
-    useEffect(() => {
-        console.log(userProfile);
-        const requestOptions = {
-            method: 'GET',
-            headers: { 'Authorization': `Bearer ${authToken}` },
-        };
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/user/${userId}`, requestOptions)
-            .then(response => response.json())
-            .then(function (e) {
-                if (e.success) {
-                    setTodos(e.data)
-                } else {
-                    console.log(e.error);
-                }
-            });
-    }, []);
 
     return (
         <div className="todo-list">

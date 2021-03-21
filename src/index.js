@@ -4,13 +4,15 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
-import { CurrentAuthProvider } from './providers';
+import { CurrentAuthProvider, TodoProvider } from './providers';
 
 ReactDOM.render(
   <CurrentAuthProvider>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <TodoProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </TodoProvider>
   </CurrentAuthProvider>,
   document.getElementById('root')
 );
