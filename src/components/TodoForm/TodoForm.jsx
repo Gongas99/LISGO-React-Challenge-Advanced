@@ -33,7 +33,7 @@ const TodoForm = () => {
             .then(function (e) {
                 if (e.success) {
                     //TODO reload page
-                    
+
                 } else {
                     console.log(e.error);
                 }
@@ -42,8 +42,8 @@ const TodoForm = () => {
     }
 
     return (
-        <div className='todo-form'>
-            <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="todo-form">
+            <div className="form-input">
                 <FormInput
                     name="task"
                     type="name"
@@ -52,11 +52,11 @@ const TodoForm = () => {
                     label="Write new task here…"
                     required
                 />
-                <Button variant="contained" color="primary" type="submit">
-                    Create
-                </Button>
-            </form>
-        </div>
+            </div>
+            <Button variant="contained" color="primary" type="submit" className="form-button">
+                Create
+            </Button>
+        </form>
     )
 }
 

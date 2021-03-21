@@ -10,6 +10,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import { useAuth } from '../../providers';
 
+import './Users.scss'
+
 const Users = () => {
     const [users, setUsers] = useState([]);
 
@@ -30,10 +32,10 @@ const Users = () => {
     }, []);
 
     return (
-        <>
+        <div className="users">
             <h2>Users</h2>
-            <TableContainer>
-                <Table className="user-table" size="medium">
+            <TableContainer className="users-table">
+                <Table size="medium">
                     <TableHead>
                         <TableRow>
                             <TableCell>Name</TableCell>
@@ -58,7 +60,7 @@ const Users = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </>
+        </div>
     )
 }
 

@@ -1,0 +1,9 @@
+.users{
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+
+    .users-table{
+        max-width: 50%;
+    }
+}

@@ -11,14 +11,16 @@ import Checkbox from '@material-ui/core/Checkbox';
 
 import Todo from '../Todo';
 
-const TodoList = ({userId, id}) => {
+import './TodoList.scss'
+
+const TodoList = ({ userId, id }) => {
     const [todos, setTodos] = useState([]);
     const [hideComplete, setHideComplete] = useState(false)
 
     const { userProfile } = useAuth();
     const authToken = userProfile.accessToken;
-    
-    if(id){
+
+    if (id) {
         userId = id
     }
 
@@ -55,9 +57,9 @@ const TodoList = ({userId, id}) => {
     }, []);
 
     return (
-        <>
-            <TableContainer>
-                <Table className="todo-table" size="medium">
+        <div className="todo-list">
+            <TableContainer className="todo-table">
+                <Table size="medium">
                     <TableHead>
                         <TableRow>
                             <TableCell>Tasks</TableCell>
@@ -82,14 +84,16 @@ const TodoList = ({userId, id}) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-            <span>Hide completed</span>
-            <Checkbox
-                checked={hideComplete}
-                onChange={handleChange}
-                color="primary"
-                inputProps={{ 'aria-label': 'primary checkbox' }}
-            />
-        </>
+            <div className="list-checkbox">
+                <span>Hide completed</span>
+                <Checkbox
+                    checked={hideComplete}
+                    onChange={handleChange}
+                    color="primary"
+                    inputProps={{ 'aria-label': 'primary checkbox' }}
+                />
+            </div>
+        </div>
     )
 }
 

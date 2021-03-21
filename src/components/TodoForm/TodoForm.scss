@@ -1,8 +1,9 @@
-.todo-form {
-    display: flex;
-    align-self: center;
+.todo-form{
+    display:flex;
+    flex-direction: row;
+    align-items: flex-end;
 
-    form{
-        display: flex;
+    .form-input{
+        padding-right: 20px;
     }
 }

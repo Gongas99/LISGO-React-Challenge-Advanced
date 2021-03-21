@@ -18,6 +18,7 @@ const NavbarComponent = () => {
                             <>
                                 {userProfile.role.name === 'admin' ? (
                                     <>
+                                        <Nav.Link as={Link} to="/register">Register</Nav.Link>
                                         <Nav.Link as={Link} to="/users">Users</Nav.Link>
                                         <Nav.Link as={Link} to="/todos">My List</Nav.Link>
                                     </>

@@ -5,6 +5,8 @@ import TodoForm from '../../components/TodoForm'
 
 import { useAuth } from '../../providers/';
 
+import './Todos.scss'
+
 const Todos = (props) => {
     const { userProfile } = useAuth();
     const { id } = props.match.params || {};
