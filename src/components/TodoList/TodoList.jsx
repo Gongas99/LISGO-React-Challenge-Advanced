@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useAuth, useTodos } from '../../providers/';
-import { createSelector, createStructuredSelector } from 'reselect';
+import { useTodos } from '../../providers/';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
@@ -13,7 +12,7 @@ import Todo from '../Todo';
 
 import './TodoList.scss'
 
-const TodoList = ({ userId, id }) => {
+const TodoList = ({ id }) => {
     const [hideComplete, setHideComplete] = useState(false)
 
     const { todos, getTodos, getAnotherTodos } = useTodos();
@@ -26,18 +25,7 @@ const TodoList = ({ userId, id }) => {
         else {
             getTodos();
         }
-    }, [])
-
-    const completedSelector = createSelector(
-        state => state.values.todos,
-        state => state.values.hide,
-        (todos, hide) => (todos.filter(function (t) {
-            if (hide) {
-
-            }
-            return t;
-        }))
-    )
+    }, [getAnotherTodos, getTodos, id])
 
     const handleChange = (event) => {
         setHideComplete(event.target.checked);

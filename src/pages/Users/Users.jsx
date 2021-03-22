@@ -6,7 +6,6 @@ import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Checkbox from '@material-ui/core/Checkbox';
 
 import { useAuth } from '../../providers';
 
@@ -16,10 +15,10 @@ const Users = () => {
     const [users, setUsers] = useState([]);
 
     const { userProfile } = useAuth();
-    const authToken = userProfile.accessToken;
+    const accessToken = userProfile.accessToken;
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, { method: 'GET', headers: { 'Authorization': `Bearer ${authToken}` } })
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, { method: 'GET', headers: { 'Authorization': `Bearer ${accessToken}` } })
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {
@@ -29,7 +28,7 @@ const Users = () => {
                     console.log(e);
                 }
             });
-    }, []);
+    }, [accessToken]);
 
     return (
         <div className="users">

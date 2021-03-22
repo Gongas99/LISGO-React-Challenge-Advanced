@@ -8,7 +8,7 @@ const Logout = () => {
     const { signOut } = useAuth();
     useEffect(() => {
         signOut();
-    }, []);
+    }, [signOut]);
 
     return (
         <Redirect to="/" />
