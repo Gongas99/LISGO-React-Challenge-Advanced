@@ -28,7 +28,7 @@ const Users = () => {
                     console.log(e);
                 }
             });
-    }, [accessToken]);
+    }, []);
 
     return (
         <div className="users">

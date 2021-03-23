@@ -43,7 +43,7 @@ const TodoProvider = ({ children }) => {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${accessToken}` },
         };
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/user/${userId}`, requestOptions)
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/user/`, requestOptions)
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {

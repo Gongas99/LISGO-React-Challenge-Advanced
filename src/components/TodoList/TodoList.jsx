@@ -25,7 +25,7 @@ const TodoList = ({ id }) => {
         else {
             getTodos();
         }
-    }, [getAnotherTodos, getTodos, id])
+    }, [])
 
     const handleChange = (event) => {
         setHideComplete(event.target.checked);
