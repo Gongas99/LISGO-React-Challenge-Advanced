@@ -14,8 +14,7 @@ import './TodoList.scss'
 
 const TodoList = ({ id }) => {
     const [hideComplete, setHideComplete] = useState(false)
-
-    const { todos, getTodos, getAnotherTodos } = useTodos();
+    const { todos, getTodos, getAnotherTodos,  } = useTodos();
 
     useEffect(() => {
         if (id) {
@@ -54,7 +53,7 @@ const TodoList = ({ id }) => {
                                             isDone={t.state}
                                         />)
                             })
-                            : 'Loading...'}
+                            : 'No Tasks Available'}
                     </TableBody>
                 </Table>
             </TableContainer>

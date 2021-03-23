@@ -13,7 +13,6 @@ const TodoProvider = ({ children }) => {
     const { accessToken } = userProfile;
     const userId = userProfile.id;
 
-
     const getTodoById = (id) => {
         return todos.indexOf(todos.find(x => x.id === id))
     }
@@ -70,8 +69,10 @@ const TodoProvider = ({ children }) => {
                     let aux = [...todos];
                     aux[todoId].description = description
                     setTodos(aux);
+                    return true;
                 } else {
                     console.log(e);
+                    return false;
                 }
             });
     }
@@ -142,8 +143,33 @@ const TodoProvider = ({ children }) => {
             });
     }
 
+    const addTodoWithId = (description, userId) => {
+        const requestOptions = {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${accessToken}`
+            },
+            body: JSON.stringify({
+                description
+            })
+        };
+
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/user/${userId}`, requestOptions)
+            .then(response => response.json())
+            .then(function (e) {
+                if (e.success) {
+                    let aux = [...todos];
+                    aux.push(e.data)
+                    setTodos(aux);
+                } else {
+                    console.log(e.error);
+                }
+            });
+    }
+
     return (
-        <TodoContext.Provider value={{ editTodoDescription, editTodoState, deleteTodo, getTodos, addTodo, getAnotherTodos, todos }}>
+        <TodoContext.Provider value={{ editTodoDescription, editTodoState, deleteTodo, getTodos, addTodo, getAnotherTodos, addTodoWithId, todos }}>
             {children}
         </TodoContext.Provider>
     );

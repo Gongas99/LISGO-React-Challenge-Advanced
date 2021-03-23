@@ -18,7 +18,11 @@ const Todo = ({ id, taskName, isDone }) => {
     }
 
     const stopEditing = (e) => {
-        editTodoDescription(id, descriptionAux)
+        let result = editTodoDescription(id, descriptionAux);
+        //if it didnt updated with success set the description to default
+        if(result){
+            setDescriptionAux(taskName);
+        }
         setIsEditing(false);
     }
 

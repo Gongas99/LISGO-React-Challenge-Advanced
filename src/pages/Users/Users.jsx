@@ -40,7 +40,6 @@ const Users = () => {
                             <TableCell>Name</TableCell>
                             <TableCell>Surname</TableCell>
                             <TableCell align="right">To-Do</TableCell>
-                            <TableCell></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -54,7 +53,7 @@ const Users = () => {
                                             surname={u.surname}
                                         />)
                             })
-                            : 'Loading...'}
+                            : 'No Users Available'}
                     </TableBody>
                 </Table>
             </TableContainer>

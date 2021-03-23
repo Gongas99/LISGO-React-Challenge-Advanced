@@ -5,9 +5,9 @@ import FormInput from '../FormInput'
 
 import './TodoForm.scss'
 
-const TodoForm = () => {
+const TodoForm = ({ id }) => {
     const [newTask, setNewTask] = useState('');
-    const { addTodo } = useTodos();
+    const { addTodo, addTodoWithId } = useTodos();
 
     const handleChange = event => {
         setNewTask(event.target.value);
@@ -15,7 +15,13 @@ const TodoForm = () => {
 
     const handleSubmit = event => {
         event.preventDefault();
-        addTodo(newTask);
+        //if admin is accessing another user
+        if (id) {
+            addTodoWithId(newTask, id)
+        }
+        else {
+            addTodo(newTask);
+        }
     }
 
     return (
