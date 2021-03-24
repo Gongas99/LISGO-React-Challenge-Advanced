@@ -3,15 +3,25 @@ import { useAuth } from '../providers';
 
 const TodoContext = createContext({
     todos: [],
-    setTodos: () => {}
+    filters: {},
+    setTodos: () => { }
 });
+
+/**
+ * Function that converts an object in
+ * @param {*} obj 
+ * @returns 
+ */
+function objectToQueryString(obj) {
+    return Object.keys(obj).map(key => key + '=' + obj[key]).join('&');
+}
 
 const TodoProvider = ({ children }) => {
     const [todos, setTodos] = useState([]);
+    const [filters, setFilters] = useState({filter: null, orderBy: null});
 
     const { userProfile } = useAuth();
     const { accessToken } = userProfile;
-    const userId = userProfile.id;
 
     const getTodoById = (id) => {
         return todos.indexOf(todos.find(x => x.id === id))
@@ -22,11 +32,14 @@ const TodoProvider = ({ children }) => {
      * @param {*} id 
      */
     const getAnotherTodos = (id) => {
+        const {filter, orderBy} = filters || {}
         const requestOptions = {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${accessToken}` },
         };
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/user/${id}`, requestOptions)
+        const url = `${process.env.REACT_APP_BACKEND_URL}/todos/user/${id}?${objectToQueryString({ filter, orderBy })}`
+
+        fetch(url, requestOptions)
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {
@@ -38,11 +51,14 @@ const TodoProvider = ({ children }) => {
     }
 
     const getTodos = () => {
+        const {filter, orderBy} = filters || {}
         const requestOptions = {
             method: 'GET',
             headers: { 'Authorization': `Bearer ${accessToken}` },
         };
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/user/`, requestOptions)
+        const url = `${process.env.REACT_APP_BACKEND_URL}/todos/user?${objectToQueryString({ filter, orderBy })}`
+
+        fetch(url, requestOptions)
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {
@@ -169,7 +185,7 @@ const TodoProvider = ({ children }) => {
     }
 
     return (
-        <TodoContext.Provider value={{ editTodoDescription, editTodoState, deleteTodo, getTodos, addTodo, getAnotherTodos, addTodoWithId, todos }}>
+        <TodoContext.Provider value={{ editTodoDescription, editTodoState, deleteTodo, getTodos, addTodo, getAnotherTodos, addTodoWithId, filters, setFilters, todos }}>
             {children}
         </TodoContext.Provider>
     );

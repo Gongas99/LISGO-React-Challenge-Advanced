@@ -7,7 +7,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { useTodos } from '../../providers/';
 import { TextField } from '@material-ui/core';
 
-const Todo = ({ id, taskName, isDone }) => {
+const Todo = ({ id, taskName, isDone, dateAdded }) => {
     const { editTodoDescription, deleteTodo, editTodoState } = useTodos();
 
     const [isEditing, setIsEditing] = useState(false)
@@ -38,6 +38,9 @@ const Todo = ({ id, taskName, isDone }) => {
             </TableCell>
             <TableCell>
                 {isEditing ? <TextField onChange={(e) => {setDescriptionAux(e.target.value)}} value={descriptionAux} /> : taskName}
+            </TableCell>
+            <TableCell>
+                {dateAdded}
             </TableCell>
             <TableCell align="right">
                 {isEditing ?

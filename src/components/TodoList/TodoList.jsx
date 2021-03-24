@@ -7,6 +7,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Checkbox from '@material-ui/core/Checkbox';
+import TableSortLabel from '@material-ui/core/TableSortLabel';
 
 import Todo from '../Todo';
 
@@ -14,7 +15,7 @@ import './TodoList.scss'
 
 const TodoList = ({ id }) => {
     const [hideComplete, setHideComplete] = useState(false)
-    const { todos, getTodos, getAnotherTodos,  } = useTodos();
+    const { todos, getTodos, getAnotherTodos, filters, setFilters } = useTodos();
 
     useEffect(() => {
         if (id) {
@@ -24,20 +25,27 @@ const TodoList = ({ id }) => {
         else {
             getTodos();
         }
-    }, [])
+    }, [filters])
 
     const handleChange = (event) => {
+        const aux = { ...filters };
+        aux.filter = event.target.checked ? 'INCOMPLETE' : 'ALL'
+        setFilters(aux);
         setHideComplete(event.target.checked);
     };
-
     return (
         <div className="todo-list">
             <TableContainer className="todo-table">
                 <Table size="medium">
                     <TableHead>
                         <TableRow>
-                            <TableCell>Tasks</TableCell>
-                            <TableCell></TableCell>
+                            <TableCell>Done?</TableCell>
+                            <TableCell>
+                                Task Name
+                            </TableCell>
+                            <TableCell>
+                                Date Added
+                            </TableCell>
                             <TableCell></TableCell>
                             <TableCell></TableCell>
                         </TableRow>
@@ -46,12 +54,13 @@ const TodoList = ({ id }) => {
                         {todos.length !== 0
                             ? todos.map(t => {
                                 return (
-                                        <Todo
-                                            key={t.id}
-                                            id={t.id}
-                                            taskName={t.description}
-                                            isDone={t.state}
-                                        />)
+                                    <Todo
+                                        key={t.id}
+                                        id={t.id}
+                                        taskName={t.description}
+                                        dateAdded={t.dateAdded}
+                                        isDone={t.state}
+                                    />)
                             })
                             : 'No Tasks Available'}
                     </TableBody>
