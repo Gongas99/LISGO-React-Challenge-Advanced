@@ -22,6 +22,7 @@ const TodoForm = ({ id }) => {
         else {
             addTodo(newTask);
         }
+        setNewTask('')
     }
 
     return (
