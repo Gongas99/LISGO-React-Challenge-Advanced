@@ -43,7 +43,6 @@ const Register = props => {
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {
-                    console.log(e);
                     return <Redirect to="/" />;
                 } else {
                     console.log(e);

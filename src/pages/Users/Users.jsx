@@ -23,7 +23,6 @@ const Users = () => {
             .then(function (e) {
                 if (e.success) {
                     setUsers(e.data);
-                    console.log(e)
                 } else {
                     console.log(e);
                 }

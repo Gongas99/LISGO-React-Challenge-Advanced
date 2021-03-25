@@ -45,7 +45,7 @@ const TodoProvider = ({ children }) => {
                 if (e.success) {
                     setTodos(e.data)
                 } else {
-                    console.log(e.error);
+                    console.log(e);
                 }
             });
     }
@@ -64,13 +64,12 @@ const TodoProvider = ({ children }) => {
                 if (e.success) {
                     setTodos(e.data)
                 } else {
-                    console.log(e.error);
+                    console.log(e);
                 }
             });
     }
 
     const editTodoDescription = (id, description) => {
-        console.log(description)
         const requestOptions = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` },
@@ -154,7 +153,7 @@ const TodoProvider = ({ children }) => {
                     aux.push(e.data)
                     setTodos(aux);
                 } else {
-                    console.log(e.error);
+                    console.log(e);
                 }
             });
     }
@@ -179,7 +178,7 @@ const TodoProvider = ({ children }) => {
                     aux.push(e.data)
                     setTodos(aux);
                 } else {
-                    console.log(e.error);
+                    console.log(e);
                 }
             });
     }
