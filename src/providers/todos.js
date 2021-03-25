@@ -156,7 +156,7 @@ const TodoProvider = ({ children }) => {
         }
     }
 
-    const addTodoWithId = (description, userId) => {
+    const addTodoWithId = async (description, userId) => {
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -168,17 +168,17 @@ const TodoProvider = ({ children }) => {
             })
         };
 
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/user/${userId}`, requestOptions)
-            .then(response => response.json())
-            .then(function (e) {
-                if (e.success) {
-                    let aux = [...todos];
-                    aux.push(e.data)
-                    setTodos(aux);
-                } else {
-                    console.log(e);
-                }
-            });
+        const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/user/${userId}`, requestOptions)
+        const response = result.json();
+        if (response.success) {
+            let aux = [...todos];
+            aux.push(response.data)
+            setTodos(aux);
+            return true;
+        } else {
+            console.log(response);
+            return false;
+        }
     }
 
     return (

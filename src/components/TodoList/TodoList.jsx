@@ -48,7 +48,7 @@ const TodoList = ({ id }) => {
         else {
             getTodos();
         }
-    }, [filters])
+    }, [filters]) //eslint-disable-line
 
     const handleChange = (event) => {
         const aux = { ...filters };
@@ -68,7 +68,7 @@ const TodoList = ({ id }) => {
     }
 
     const handleComplete = async (id, state) => {
-        const result = editTodoState(id, state);
+        const result = await editTodoState(id, state);
         if(result){
             toast.success('Task Changed Successfully!')
         }else{
@@ -96,8 +96,8 @@ const TodoList = ({ id }) => {
             field: 'dateAdded', headerName: 'Date', renderCell: (params) => {
                 var d = new Date(params.value)
                 return [d.getDate(),
-                d.getMonth() + 1,
-                d.getFullYear()].join('/') + ' ' +
+                    d.getMonth() + 1,
+                    d.getFullYear()].join('/') + ' ' +
                     [d.getHours(),
                     d.getMinutes(),
                     d.getSeconds()].join(':');

@@ -15,10 +15,9 @@ const Users = () => {
     const [users, setUsers] = useState([]);
 
     const { userProfile } = useAuth();
-    const accessToken = userProfile.accessToken;
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, { method: 'GET', headers: { 'Authorization': `Bearer ${accessToken}` } })
+        fetch(`${process.env.REACT_APP_BACKEND_URL}/users`, { method: 'GET', headers: { 'Authorization': `Bearer ${userProfile.accessToken}` } })
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {
@@ -27,7 +26,7 @@ const Users = () => {
                     console.log(e);
                 }
             });
-    }, []);
+    }, []); //eslint-disable-line
 
     return (
         <div className="users">
@@ -52,7 +51,9 @@ const Users = () => {
                                             surname={u.surname}
                                         />)
                             })
-                            : 'No Users Available'}
+                            : <TableRow>
+                                <TableCell>'No Users Available'</TableCell>
+                            </TableRow>}
                     </TableBody>
                 </Table>
             </TableContainer>

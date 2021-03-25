@@ -20,7 +20,7 @@ const Router = () => {
 
   useEffect(() => {
     setProfile(userProfile);
-  }, [isAuthenticated]);
+  }, [isAuthenticated]); //eslint-disable-line
 
   const canUseRoute = path => {
     if (permissions['all'].find(route => route === path)) {
@@ -36,9 +36,9 @@ const Router = () => {
 
   return (
     <Switch>
-      {routerConfig.map(({ isPrivate, ...props }) => {
+      {routerConfig.map(({ isPrivate, ...props }) => { //eslint-disable-line
         if (canUseRoute(props.path)) return renderRoute(isPrivate, props);
-      })}
+      })} 
       <Redirect to="/" />
     </Switch>
   );

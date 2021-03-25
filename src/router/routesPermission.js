@@ -2,7 +2,9 @@ export const permissions = {
     admin: [
         '/users',
         '/todos/:id',
-        '/register'
+        '/register',
+        '/todos', 
+        '/logout'
     ],
     normal: [
         '/todos', 

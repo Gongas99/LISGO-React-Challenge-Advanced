@@ -19,15 +19,15 @@ const TodoForm = ({ id }) => {
         setNewTask(event.target.value);
     };
 
-    const handleSubmit = event => {
+    const handleSubmit = async event => {
         event.preventDefault();
         //if admin is accessing another user
         let result = null
         if (id) {
-            result = addTodoWithId(newTask, id)
+            result = await addTodoWithId(newTask, id)
         }
         else {
-            result = addTodo(newTask);
+            result = await addTodo(newTask);
         }
         if(result){
             toast.success('Task added successfully!')
