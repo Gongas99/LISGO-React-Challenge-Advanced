@@ -111,24 +111,24 @@ const TodoProvider = ({ children }) => {
         }
     }
 
-    const deleteTodo = (id) => {
+    const deleteTodo = async (id) => {
         const requestOptions = {
             method: 'DELETE',
             headers: { 'Authorization': `Bearer ${accessToken}` },
         };
 
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/${id}`, requestOptions)
-            .then(response => response.json())
-            .then(function (e) {
-                if (e.success) {
-                    let todoId = getTodoById(id)
-                    let aux = [...todos];
-                    aux.splice(todoId, 1);
-                    setTodos(aux);
-                } else {
-                    console.log(e);
-                }
-            });
+        const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/${id}`, requestOptions)
+        const response = await result.json();
+        if (response.success) {
+            let todoId = getTodoById(id)
+            let aux = [...todos];
+            aux.splice(todoId, 1);
+            setTodos(aux);
+            return true;
+        } else {
+            console.log(response);
+            return false
+        }
     }
 
     const addTodo = async (description) => {
