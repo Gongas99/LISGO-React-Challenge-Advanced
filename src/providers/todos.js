@@ -69,48 +69,46 @@ const TodoProvider = ({ children }) => {
             });
     }
 
-    const editTodoDescription = (id, description) => {
+    const editTodoDescription = async (id, description) => {
         const requestOptions = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` },
             body: JSON.stringify({ description })
         };
 
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/${id}`, requestOptions)
-            .then(response => response.json())
-            .then(function (e) {
-                if (e.success) {
-                    let todoId = getTodoById(id)
-                    let aux = [...todos];
-                    aux[todoId].description = description
-                    setTodos(aux);
-                    return true;
-                } else {
-                    console.log(e);
-                    return false;
-                }
-            });
+        const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/${id}`, requestOptions);
+        const response = await result.json()
+        if (response.success) {
+            let todoId = getTodoById(id)
+            let aux = [...todos];
+            aux[todoId].description = description
+            setTodos(aux);
+            return true;
+        } else {
+            console.log(response);
+            return false;
+        }
     }
 
-    const editTodoState = (id, state) => {
+    const editTodoState = async (id, state) => {
         const requestOptions = {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${accessToken}` },
             body: JSON.stringify({ state })
         };
 
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/${id}`, requestOptions)
-            .then(response => response.json())
-            .then(function (e) {
-                if (e.success) {
-                    let todoId = getTodoById(id)
-                    let aux = [...todos];
-                    aux[todoId].state = state
-                    setTodos(aux);
-                } else {
-                    console.log(e);
-                }
-            });
+        const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/${id}`, requestOptions)
+        const response = await result.json();
+        if (response.success) {
+            let todoId = getTodoById(id)
+            let aux = [...todos];
+            aux[todoId].state = state
+            setTodos(aux);
+            return true;
+        } else {
+            console.log(response);
+            return false;
+        }
     }
 
     const deleteTodo = (id) => {
@@ -133,7 +131,7 @@ const TodoProvider = ({ children }) => {
             });
     }
 
-    const addTodo = (description) => {
+    const addTodo = async (description) => {
         const requestOptions = {
             method: 'PUT',
             headers: {
@@ -144,18 +142,18 @@ const TodoProvider = ({ children }) => {
                 description
             })
         };
-
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/todos`, requestOptions)
-            .then(response => response.json())
-            .then(function (e) {
-                if (e.success) {
-                    let aux = [...todos];
-                    aux.push(e.data)
-                    setTodos(aux);
-                } else {
-                    console.log(e);
-                }
-            });
+        
+        const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/todos`, requestOptions);
+        const response = await result.json();
+        if (response.success) {
+            let aux = [...todos];
+            aux.push(response.data)
+            setTodos(aux);
+            return true
+        } else {
+            console.log(response);
+            return false;
+        }
     }
 
     const addTodoWithId = (description, userId) => {

@@ -4,12 +4,16 @@ import FormInput from '../../components/FormInput/FormInput';
 import Button from '@material-ui/core/Button';
 import FormControlLabel from "@material-ui/core/FormControlLabel"
 import Switch from "@material-ui/core/Switch"
+import { toast } from 'react-toastify';
 
 // scss
 import './Register.scss';
-import { Redirect } from 'react-router-dom';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Register = props => {
+    //configure toast for this page
+    toast.configure();
+
     const [newUserCredentials, setNewUserCredentials] = useState({
         password: '',
         name: '',
@@ -43,8 +47,9 @@ const Register = props => {
             .then(response => response.json())
             .then(function (e) {
                 if (e.success) {
-                    return <Redirect to="/" />;
+                    toast.success('User Registered Successfully!');
                 } else {
+                    toast.error('Failed to register a new user!');
                     console.log(e);
                 }
             })

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../providers/';
 import { useHistory } from 'react-router-dom'
-
+import { toast } from 'react-toastify';
 
 import FormInput from '../../components/FormInput'
 import Button from '@material-ui/core/Button';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './Login.scss';
 
 const Login = () => {
@@ -18,15 +19,19 @@ const Login = () => {
 
     const { signIn } = useAuth();
 
-    const handleSubmit = event => {
+    //configure toast for this page
+    toast.configure();
+
+    const handleSubmit = async event => {
         event.preventDefault();
-        signIn(name, password, function (message) {
-            //if success
-            if (message) {
-                history.push(`/todos/`)
-            }
-            //TODO error
-        });
+        const response = await signIn(name, password);
+        if (response) {
+            toast.success('Login Success');
+            history.push(`/todos/`)
+        }
+        else{
+            toast.error('Invalid Login Credentials');
+        }
     };
 
     const handleChange = event => {

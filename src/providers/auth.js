@@ -2,7 +2,7 @@ import React, { useState, createContext, useContext, useEffect } from 'react';
 
 const CurrentAuthContext = createContext({
     isAuthenticated: false,
-    authenticate: () => {},
+    authenticate: () => { },
 });
 
 const CurrentAuthProvider = ({ children }) => {
@@ -17,25 +17,23 @@ const CurrentAuthProvider = ({ children }) => {
         }
     }, []);
 
-    const signIn = (name, password, cb) => {
+    const signIn = async (name, password) => {
         const requestOptions = {
             method: 'POST',
-            headers: {'Content-Type': 'application/json'},
+            headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ name: name, password: password }),
         };
 
-        fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, requestOptions)
-            .then(response => response.json())
-            .then(function(e) {
-                if (e.success) {
-                    setUserProfile(e.data);
-                    sessionStorage.setItem('@app:user', JSON.stringify(e.data));
-                    setIsAuthenticated(true);
-                    cb(e.success);
-                } else {
-                    cb(null);
-                }
-            });
+        const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/login`, requestOptions);
+        const response = await result.json();
+        if (response.success) {
+            setUserProfile(response.data);
+            sessionStorage.setItem('@app:user', JSON.stringify(response.data));
+            setIsAuthenticated(true);
+            return response.success;
+        } else {
+            return null;
+        }
     };
 
     const signOut = () => {

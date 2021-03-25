@@ -1,11 +1,23 @@
 .todo-list{
     display: flex;
     flex-direction: column;
-    width: 75%;
+    width: 50%;
 
     .list-checkbox{
         display: flex;
         align-items: center;
         padding-top: 20px;
     }
+}
+
+@media only screen and (max-width: 1280px) {
+    .todo-list{
+        width: 75%;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+    .todo-list{
+        width: 95%;
+  }
 }

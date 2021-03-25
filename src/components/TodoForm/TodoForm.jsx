@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { useTodos } from '../../providers/';
 import Button from '@material-ui/core/Button';
 import FormInput from '../FormInput'
+import { toast } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
 import './TodoForm.scss'
+
 
 const TodoForm = ({ id }) => {
     const [newTask, setNewTask] = useState('');
     const { addTodo, addTodoWithId } = useTodos();
 
+    //configure toast for this page
+    toast.configure();
+    
     const handleChange = event => {
         setNewTask(event.target.value);
     };
@@ -16,11 +22,17 @@ const TodoForm = ({ id }) => {
     const handleSubmit = event => {
         event.preventDefault();
         //if admin is accessing another user
+        let result = null
         if (id) {
-            addTodoWithId(newTask, id)
+            result = addTodoWithId(newTask, id)
         }
         else {
-            addTodo(newTask);
+            result = addTodo(newTask);
+        }
+        if(result){
+            toast.success('Task added successfully!')
+        }else {
+            toast.error('Failed to add a new Task!')
         }
         setNewTask('')
     }
