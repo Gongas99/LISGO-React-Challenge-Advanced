@@ -169,7 +169,7 @@ const TodoProvider = ({ children }) => {
         };
 
         const result = await fetch(`${process.env.REACT_APP_BACKEND_URL}/todos/user/${userId}`, requestOptions)
-        const response = result.json();
+        const response = await result.json();
         if (response.success) {
             let aux = [...todos];
             aux.push(response.data)
